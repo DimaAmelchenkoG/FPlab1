@@ -10,7 +10,7 @@
 -author("mitya").
 
 %% API
--export([main/0, count_sh/1]).
+-export([main/0]).
 
 main() ->
   Number = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615" ++
@@ -24,34 +24,34 @@ main() ->
     "8884580156166097919133875499200524063689912560717606058861164671094050775410022569831552000559357297257163" ++
     "6269561882670428252483600823257530420752963450",
   Length = 1000,
-  max_product_helper(Number, Length, 0).
+  max_proizved(Number, Length, 0).
 
 % Хвостовая рекурсия
-count_sh(String) ->
-  count_sh_helper(String, 0).
+count_of_words(String) ->
+  count_of_words(String, 0).
 
-count_sh_helper([], Count) ->
+count_of_words([], Count) ->
   Count;
 
-count_sh_helper([H | T], Count) ->
+count_of_words([H | T], Count) ->
   NewCount = if
                H == $0 -> Count + 1;
                true -> Count
              end,
-  count_sh_helper(T, NewCount).
+  count_of_words(T, NewCount).
 
-max_product_helper(Number, Length, Max) ->
+max_proizved(Number, Length, Max) ->
   Indexes = lists:seq(1, Length - 12),
   lists:foldl(
     fun(I, Acc) ->
     Substring = string:substr(Number, I, 13),
-    Count = count_sh(Substring),
+    Count = count_of_words(Substring),
 
     if Count == 0 ->
-        Product = lists:foldl(
+      ResultProizved = lists:foldl(
           % описание функции                                      | Acc | Список
-          fun(Digit, Prod) -> Prod * (list_to_integer([Digit])) end, 1, Substring),
-        max(Acc, Product);
+          fun(Digit, Proizved) -> Proizved * (list_to_integer([Digit])) end, 1, Substring),
+        max(Acc, ResultProizved);
       true ->
         Acc
     end
