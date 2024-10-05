@@ -20,6 +20,12 @@ count_of_words([H | T], Count) ->
              end,
   count_of_words(T, NewCount).
 ```
+
+## Рекурсия
+```
+len([]) -> 0;
+len([_Head | Tail]) -> 1 + len(Tail).
+```
 ## Должны использоваться функции reduce/fold, filter и аналогичные)
 ```
 max_proizved(Number, Length, Max) ->
