@@ -69,6 +69,30 @@ max_proizved(Number, Length, Max) ->
     end, Max, Indexes).
 ```
 
+## Задача 21:
+![image](https://github.com/user-attachments/assets/420129c5-7968-45a6-8eed-87eb5a28b61b)
+
+## Должны использоваться функции reduce/fold, filter и аналогичные)
+```
+get_divisors_sums(Max) ->
+  DivisorSum = lists:duplicate(Max, 0),
+  lists:foldl(fun(I, Acc) ->
+    sum_of_divisors(I, Acc)
+              end, DivisorSum, lists:seq(1, Max - 1)).
+```
+## Создаем список из дружественных чисел 
+```
+count_friendship_digits(DivisorSum) ->
+  FriendshipDigits = lists:usort(
+    [I || I <- lists:seq(1, length(DivisorSum) - 1),
+      J = lists:nth(I, DivisorSum),
+      J /= I,
+      J < length(DivisorSum),
+      lists:nth(J, DivisorSum) == I]
+  ),
+  lists:sum(FriendshipDigits).
+```
+
 ## Вывод
 В ходе выполнения данной лабораторной работы, я познакомился с таким языком программирования как Erlang. Я изучил его синтаксис и некоторые инструменты.
 Я познакомился с такими инструментами, как:
