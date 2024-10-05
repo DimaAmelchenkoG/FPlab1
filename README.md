@@ -39,3 +39,26 @@ max_proizved(Number, Length, Max) ->
     end
               end, Max, Indexes).
 ```
+
+## генерация последовательности при помощи отображения (map)
+```
+max_proizved(Number, Length, Max) ->
+  Indexes = lists:seq(1, Length - 12),
+  lists:foldl(
+    fun(I, Acc) ->
+      Substring = string:substr(Number, I, 13),
+      Count = count_of_words(Substring),
+
+      if Count == 0 ->
+        GoToInteger = fun(Sym) -> list_to_integer([Sym]) end,
+        SubstringLikeInteger = lists:map(GoToInteger, Substring),
+        ResultProizved = lists:foldl(
+          % описание функции                                      | Acc | Список
+          fun(Digit, Proizved) -> Proizved * Digit end, 1, SubstringLikeInteger),
+
+        max(Acc, ResultProizved);
+        true ->
+          Acc
+      end
+    end, Max, Indexes).
+```
